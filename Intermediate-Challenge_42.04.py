@@ -13,15 +13,27 @@ pickle.dump(randomlist, scoreFile)
 scoreFile.close()
 scoreFile2 = open("scoreFile2.dat","rb")
 readWords = pickle.load(scoreFile2)
+scoreFile2.close()
 readWords = sorted(readWords)
 print(readWords)
 
 
-userInput = int(input("What was your time in the race, in seconds?" ))
+# Keep asking until the input is a whole number
+while True:
+   try:
+      userInput = int(input("What was your time in the race, in seconds? "))
+      break
+   except ValueError:
+      print("Please enter a whole number of seconds.")
+
+# Slower than every racer means last place
+placement = len(readWords) + 1
 
 for i in range(len(readWords)):
 
    if userInput <= readWords[i]:
-      print(i+1)
+      placement = i+1
 
       break
+
+print(placement)
